@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla:wght@500;600;700&display=swap");
 
 $default_font: "Martel Sans", sans-serif;
+$primary-color: #1c1c1c;
 
 html,
 body {
@@ -40,6 +41,10 @@ a {
     flex-wrap: wrap;
 }
 
+.content-container {
+    // padding: 1em;
+}
+
 .account-type,
 .display-name {
     // font-size: 10px;
@@ -49,16 +54,41 @@ a {
     transition: all 0.5ms;
 }
 
+table {
+    width: "95%";
+    display: "block";
+    overflowx: "auto";
+}
+
 header {
     background-color: #242424;
     padding: 1.5em;
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+
+    .logo-wrapper {
+        display: flex;
+    }
+}
+
+.account-transactions {
+    .title {
+        font-size: 1.2em;
+    }
+
+    .emphasize {
+        font-size: 1.5em;
+        letter-spacing: 2px;
+    }
+
+    .small-caption {
+        font-weight: 100;
+    }
 }
 
 .table-container {
-    background-color: #1c1c1c !important;
+    background-color: $primary-color !important;
     .table-head {
     }
 
@@ -73,24 +103,29 @@ header {
 
 .MuiSelect-select.MuiSelect-select {
     padding-right: 24px;
-    background: #1c1c1c;
+    background: $primary-color;
     font-family: $default_font !important;
     font-weight: 600;
 }
 
 .MuiSelect-select:not([multiple]) option,
 .MuiSelect-select:not([multiple]) optgroup {
-    background-color: #1c1c1c !important;
+    background-color: $primary-color !important;
 }
 
 .MuiTypography-body2 {
     font-family: $default_font !important;
 }
 
+tr.MuiTableRow-root.MuiTableRow-hover {
+    cursor: pointer;
+}
+
 footer {
     font-family: "Karla", sans-serif;
     font-weight: 700;
     text-align: center;
+    padding: 2em;
 }
 
 .page-enter {
@@ -111,4 +146,11 @@ footer {
     opacity: 0;
     transform: scale(0.9);
     transition: opacity 200ms, transform 200ms;
+}
+
+.chart-container {
+    background: $primary-color;
+    padding: 1.5em;
+    width: 99%;
+    margin: auto;
 }

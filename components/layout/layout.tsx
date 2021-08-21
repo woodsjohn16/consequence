@@ -9,14 +9,22 @@ const Layout = (props) => {
   return (
     <>
       <header>
-        <Link href="/">
-          <Image src={logo} />
-        </Link>
+        <a href="/" rel="noopener noreferrer">
+          <Link href="/">
+            <div className="logo-wrapper">
+              <Image src={logo} />
+            </div>
+          </Link>
+        </a>
       </header>
       <div className="main-content">{props.children}</div>
       <footer>
-        <a href="/" target="_blank" rel="noopener noreferrer">
-          Consequence <span>2021</span>
+        <a href="/" rel="noopener noreferrer">
+          <Link href="/">
+            <div className="logo-wrapper">
+              <Image src={logo} />
+            </div>
+          </Link>
         </a>
       </footer>
     </>

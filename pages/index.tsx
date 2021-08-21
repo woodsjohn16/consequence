@@ -14,7 +14,10 @@ const Home: NextPage = () => {
   const dispatch = useDispatch()
   const { loading, accounts } = useSelector(makeSelectUserAccounts)
   useEffect(() => {
-    if (accounts.length < 0) dispatch(getAccounts())
+    console.log(accounts.length <= 0)
+    if (accounts.length <= 0) {
+      dispatch(getAccounts())
+    }
   }, [])
 
   return (

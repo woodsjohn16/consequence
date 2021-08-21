@@ -1,20 +1,15 @@
-import React, { useState } from 'react'
-import router from 'next/router'
+import React from 'react'
 import moment from 'moment'
 import {
   TableContainer,
-  Paper,
   TableBody,
   TableRow,
   TableCell,
-  TableFooter,
   TablePagination,
-  Grid,
-  TableHead
+  TableHead,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
-import AccountTableHead from '../accounts/accountTableHead'
 
 const useStyles2 = makeStyles({
   table: {
@@ -25,18 +20,8 @@ const useStyles2 = makeStyles({
 const TransactionsTable = (props) => {
   const { data } = props
 
-  const headers = [
-    {
-      id: 'description',
-      numeric: false,
-      label: 'Description',
-    },
-    { id: 'accountType', numeric: false, label: 'Account Type' },
-  ]
-
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(10)
-  const classes = useStyles2()
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
@@ -48,62 +33,55 @@ const TransactionsTable = (props) => {
   }
 
   return (
-    <Grid container justifyContent="center" alignItems="center">
-      <Grid item sm={12} lg={6}>
-        {data.length > 0 && (
-          <TableContainer component={Paper} className="table-container">
-            <Table
-              className={classes.table}
-              aria-label="custom pagination table"
-            >
-              <TableHead>
-                <TableRow>
-                  <TablePagination
-                    rowsPerPageOptions={[
-                      10,
-                      20,
-                      30,
-                      { label: 'All', value: -1 },
-                    ]}
-                    colSpan={0}
-                    count={data.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    SelectProps={{
-                      inputProps: { 'aria-label': 'rows per page' },
-                      native: true,
-                    }}
-                    className="table-footer"
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                  />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => {
-                    return (
-                      <TableRow hover key={index}>
-                        <TableCell component="th" scope="row">
-                          <div className="title">{row.data.description}</div>
-                          <div>
-                            {moment(row.data.timestamp).format('DD MMMM')}
-                          </div>
-                        </TableCell>
-                        <TableCell>
+    <>
+      {data.length > 0 && (
+        <TableContainer className="table-container">
+          <Table aria-label="custom pagination table">
+            <TableHead>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[10, 20, 30, { label: 'All', value: -1 }]}
+                  colSpan={0}
+                  count={data.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  SelectProps={{
+                    inputProps: { 'aria-label': 'rows per page' },
+                    native: true,
+                  }}
+                  className="table-footer"
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  return (
+                    <TableRow hover key={index}>
+                      <TableCell component="th" scope="row">
+                        <div className="title">{row.data.description}</div>
+                        <div className="small-caption">
+                          {moment(row.data.timestamp).format('DD MMMM')}
+                        </div>
+                      </TableCell>
+                      <TableCell align="right">
+                        <div className="emphasize">{row.data.amount}</div>
+                        <div className="small-caption">
                           {row.data.running_balance &&
-                            row.data.running_balance.currency}
-                        </TableCell>
-                      </TableRow>
-                    )
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-      </Grid>
-    </Grid>
+                            `${row.data.running_balance.currency} ${row.data.running_balance.amount}`}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+    </>
   )
 }
 
